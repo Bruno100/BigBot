@@ -19,15 +19,19 @@ bot.on("message", function(message){
     switch(args[0].toLowerCase()){
         case "big":
             var embed = new Discord.RichEmbed()
-                .addField("BIGBRUM", "Bigbrum desenvolvedor de Bots, criador desse servidor usando para testes")
                 .setColor(0x00FFFF)
+                .setAuthor("BIGBRUM","https://i.imgur.com/Nydvnvi.jpg")
+                .setDescription("Criador desse Clã,Desenvolvedor de Bots,Ajudante do server e jogador ativo que está sempre cuidando de todos fazendo o máximo possivel pra ajudar")
             message.channel.sendEmbed(embed);
             break;
-        case "lipo":
-            message.channel.send("Lipo primeiro a entrar pra testes");
+        case "dark":
+            message.channel.send("Dark e seus amigos \nCACHORRO AIAI CACHORRO HUHU Para mais informaçoes: acesse https://www.youtube.com/watch?v=6L7LrIDQIn8");
             break;
-        case "ch":
-            message.channel.send("Ch entrou pra ajudar em testes");
+        case "paradise":
+            message.channel.send("Paradise ótimo em construções e viciado em farmar, estrategista mas acaba não sendo tão bom em PvP...");
+            break;
+        case "pyro":
+            message.channel.send("PyroGames73, menino de 14 anos bonito, solteiro, gostoso lgl, gente boa, novato no clan e Bonito dnv");
             break;
         case "delete":
             let role = message.guild.roles.find("name", "Master");
@@ -38,12 +42,15 @@ bot.on("message", function(message){
             break;
         case "comandos":
             var embed = new Discord.RichEmbed()
+                .setTitle("**COMANDOS**")
                 .setDescription("**Abaixo os comandos do server**")
                 .addField("!big", "Saber mais sobre Bigbrum")
-                .addField("!lipo", "Saber mais sobre o lipoViske")
-                .addField("!ch", "Saber mais sobre o ch2089")
+                .addField("!dark", "Saber mais sobre o Dark")
+                .addField("!paradise", "Saber mais sobre o Paradise")
+                .addField("!pyro", "Saber mais sobre o Pyro")
                 .setColor(0xFF0000)
-                .setThumbnail(message.author.avatarURL)
+                //.setThumbnail(message.author.avatarURL)
+                .setThumbnail("https://i.imgur.com/O0GnxhZ.png")
             message.channel.sendEmbed(embed);
             break;
         default:
@@ -54,7 +61,7 @@ bot.on("message", function(message){
 
 bot.on("guildMemberAdd", function(member){
     member.guild.channels.find("name","📥-entrada-chat-off").send(member.toString() + " Seja Bem Vindo ao nosso grupo");
-    member.guild.channels.find("name","📥-entrada-chat-off").send("http://prntscr.com/jscg7f");
+    member.guild.channels.find("name","📥-entrada-chat-off").send("https://imgur.com/W8LDea2");
 
     member.addRole(member.guild.roles.find("name", "Membro Novato"));
 });
