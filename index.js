@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const PREFIX = "!";
 
 bot.on('ready', function(){
-    console.log("Ready?");
+    console.log(`${bot.user.username} is online!`);
     bot.user.setActivity('!comandos | By Bigbrum');
 });
 
@@ -24,15 +24,6 @@ bot.on("message", function(message){
                 .setDescription("Criador desse Clã,Desenvolvedor de Bots,Ajudante do server e jogador ativo que está sempre cuidando de todos fazendo o máximo possivel pra ajudar")
             message.channel.sendEmbed(embed);
             break;
-        case "dark":
-            message.channel.send("Dark e seus amigos \nCACHORRO AIAI CACHORRO HUHU Para mais informaçoes: acesse https://www.youtube.com/watch?v=6L7LrIDQIn8");
-            break;
-        case "paradise":
-            message.channel.send("Paradise ótimo em construções e viciado em farmar, estrategista mas acaba não sendo tão bom em PvP...");
-            break;
-        case "pyro":
-            message.channel.send("PyroGames73, menino de 14 anos bonito, solteiro, gostoso lgl, gente boa, novato no clan e Bonito dnv");
-            break;
         case "delete":
             let role = message.guild.roles.find("name", "Master");
             if(message.member.roles.has(role.id)){
@@ -45,13 +36,57 @@ bot.on("message", function(message){
                 .setTitle("**COMANDOS**")
                 .setDescription("**Abaixo os comandos do server**")
                 .addField("!big", "Saber mais sobre Bigbrum")
-                .addField("!dark", "Saber mais sobre o Dark")
-                .addField("!paradise", "Saber mais sobre o Paradise")
-                .addField("!pyro", "Saber mais sobre o Pyro")
+                .addField("!report", "Usado pra reportar membros")
+                .addField("!botinfo", "Informações do Bot")
+                .addField("!serverinfo", "Informações do Servidor")
                 .setColor(0xFF0000)
                 //.setThumbnail(message.author.avatarURL)
                 .setThumbnail("https://i.imgur.com/O0GnxhZ.png")
             message.channel.sendEmbed(embed);
+            break;
+        case "botinfo":
+            let bIcon = bot.user.displayAvatarURL;
+            var embedBot = new Discord.RichEmbed()
+                .setDescription("Informações do BOT")
+                .setColor("#000000")
+                .addField("Nome do bot:", bot.user.username)
+                .addField("Criado em:", bot.user.createdAt)
+                .setThumbnail(bIcon)
+            message.channel.sendEmbed(embedBot);
+            break;
+        case "serverinfo":
+            let sIcon = message.guild.iconURL;
+            var embedServer = new Discord.RichEmbed()
+                .setDescription("Informações do Server")
+                .setColor("#000000")                
+                .addField("Nome do servidor", message.guild.name)
+                .addField("Numero de membros", message.guild.memberCount)
+                .addField("Criado em", message.guild.createdAt)
+                .addField("Você juntou em", message.member.joinedAt)
+                .setThumbnail(sIcon)
+            message.channel.sendEmbed(embedServer)   
+            break;
+        case "report":
+            let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            if(!rUser) return message.channel.send("Usuario nao encontrado");
+            let tam = args.length;
+            let reason = args.slice(2,tam);
+            let reason2 = reason.join(" ");
+
+            let reportEmbed = new Discord.RichEmbed()
+                .setDescription("Reports")
+                .setColor("#FF0000")
+                .addField("Usuario Reportado", `${rUser}`)
+                .addField("Reportado por", `${message.author}`)
+                .addField("Canal", message.channel)
+                .addField("Time", message.createdAt)
+                .addField("Motivo", reason2)
+
+            let canalReport = message.guild.channels.find("name","reports");
+            if(!canalReport) return message.channel.send("Canal nao encontrado");
+
+            message.delete().catch(O_o => {});
+            canalReport.send(reportEmbed);
             break;
         default:
             message.channel.send("This command not exist");
